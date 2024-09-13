@@ -5,6 +5,13 @@ REM CAP 3
 REM |||||||||||||||||||||||||||||||||||||| 3.1 "The WHERE Clause" ||||||||||||||||||||||||||||||||||||||
 REM Rischert, A. (2010). Oracle SQL By Example.
 
+set pagesize 99;
+set linesize 250;
+col parameter format a36;
+col value format a35;
+set colsep '||';
+set null n/Datos;
+
 REM (Rischert, 2010, 103)
 SELECT first_name, last_name, phone
 FROM instructor
