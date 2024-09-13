@@ -1,3 +1,4 @@
+SPOOL C:\guest\schemasetup\Cap3OUT.txt
 REM Zarate Lozano Luis Axel
 REM 3BM2
 
@@ -5,7 +6,7 @@ REM CAP 3
 REM |||||||||||||||||||||||||||||||||||||| 3.1 "The WHERE Clause" ||||||||||||||||||||||||||||||||||||||
 REM Rischert, A. (2010). Oracle SQL By Example.
 
-set pagesize 99;
+set pagesize 300;
 set linesize 250;
 col parameter format a36;
 col value format a35;
@@ -146,7 +147,7 @@ REM b) Write a SELECT statement that lists the first and last names of instructo
 REM uppercase or lowercase) in their last name, living in zip code 10025.
 SELECT first_name, last_name
 FROM instructor
-WHERE (last_name LIKE "%i%" OR last_name LIKE "%I%") AND zip = '10025';
+WHERE (last_name LIKE '%i%' OR last_name LIKE '%I%') AND zip = '10025';
 
 REM c) Does the following statement contain an error? Explain
 SELECT last_name
@@ -169,13 +170,13 @@ WHERE ROWNUM <= 10;
 REM f) Write a SELECT statement that lists descriptions of courses for which there are prerequisites and
 REM that cost less than 1100.
 SELECT description
-FROM courses
+FROM course
 WHERE prerequisite is not null and cost < 1100;
 
 REM g) Write a SELECT statement that lists the cost of courses without a known prerequisite; do not
 REM repeat the cost.
 SELECT distinct cost
-FROM courses
+FROM course
 WHERE prerequisite is null;
 	REM distinct evita la repetición.
 REM ====================================================================================================================
@@ -281,6 +282,9 @@ REM d) Execute the following query. What do you observe about the last row retur
 SELECT student_id, last_name
 FROM student
 ORDER BY last_name;
-	REM Las minús van después de las mayús cuando se ordenan.
+	REM Todo apareció en orden (se esperaba que 
+	REM las minús fueran después de todas las mayús).
 
 REM ====================================================================================================================
+
+SPOOL OFF
