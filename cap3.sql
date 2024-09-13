@@ -14,15 +14,17 @@ set colsep '||';
 set null n/Datos;
 
 REM (Rischert, 2010, 103)
+REM Despliega el apellido que sea igual Schorin
 SELECT first_name, last_name, phone
 FROM instructor
 WHERE last_name = 'Schorin';
 
 REM (Rischert, 2010, 103)
+REM No se seleccionará ninguna fila, porque se toman en cuenta mayús y minús.
 SELECT first_name, last_name, phone
 FROM instructor
 WHERE last_name = 'schorin'; 
-	REM No se seleccionará ninguna fila, porque se toman en cuenta mayús y minús. 
+	 
 
 REM (Rischert, 2010, 103)
 SELECT first_name, last_name, phone
