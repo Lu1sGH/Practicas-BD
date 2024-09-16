@@ -14,12 +14,13 @@ set colsep '||';
 set null n/Datos;
 
 REM (Rischert, 2010, 103)
-REM Despliega el apellido que sea igual Schorin
+REM Despliega datos del instructor donde el apellido sea igual 'Schorin'
 SELECT first_name, last_name, phone
 FROM instructor
 WHERE last_name = 'Schorin';
 
 REM (Rischert, 2010, 103)
+REM Despliega datos del instructor donde el apellido sea igual 'schorin'
 REM No se seleccionará ninguna fila, porque se toman en cuenta mayús y minús.
 SELECT first_name, last_name, phone
 FROM instructor
@@ -27,56 +28,69 @@ WHERE last_name = 'schorin';
 	 
 
 REM (Rischert, 2010, 103)
+REM Selecciona los datos del instructor
+REM donde el instructor es diferente(<>) de 'Schorin'
 SELECT first_name, last_name, phone
 FROM instructor
 WHERE last_name <> 'Schorin';
-	REM Donde el instructor es diferente(<>) de 'Schorin'
 	
 REM (Rischert, 2010, 104)
+REM Despliega la descripción y costo de los cursos que cuesten más de 1195
 SELECT description, cost
 FROM course
 WHERE cost >= 1195;
 
 REM (Rischert, 2010, 104)
+REM Despliega la descripción y costo de los cursos cuyos costos estén entre
+REM 1000 y 1100.
 SELECT description, cost
 FROM course
 WHERE cost BETWEEN 1000 AND 1100;
 	
 REM (Rischert, 2010, 105)
+REM Despliega la descripción y costo de los cursos cuyo costo sea 1095 o 1595
 SELECT description, cost
 FROM course
 WHERE cost IN (1095, 1595);
 
 REM (Rischert, 2010, 105)
+REM Selecciona los datos del instructor cuyo apellido concuerde con el patrón 'S%'
+REM '%' denota más carácteres antes o después del patrón.
 SELECT first_name, last_name, phone
 FROM instructor
 WHERE last_name LIKE 'S%';
-	REM '%' denota más carácteres antes o después del patrón.
 	
 REM (Rischert, 2010, 105)
+REM Selecciona los datos del instructor cuyo apellido concuerde con el patrón '_o%'
+REM '_' denota un carácter antes o después del patrón.
 SELECT first_name, last_name
 FROM instructor
 WHERE last_name LIKE '_o%';
-	REM '_' denota un carácter antes o después del patrón.
 	
 REM (Rischert, 2010, 106)
+REM Selecciona los datos del instructor cuyo apellido no concuerde con el patrón 'S%'
+REM Not nega los operadores anteriores.
 SELECT phone
 FROM instructor
 WHERE last_name NOT LIKE 'S%';
-	REM Not nega los operadores anteriores.
 	
 REM (Rischert, 2010, 106)
+REM Despliega la descripción y costo de los cursos cuyo prerequisito sea nulo
 SELECT description, prerequisite
 FROM course
 WHERE prerequisite IS NULL;
 
 REM (Rischert, 2010, 107)
+REM Despliega la descripción y costo de los cursos cuyo costo sea 1095 y la
+REM descripción siga el patrón 'I%'
 SELECT description, cost
 FROM course
 WHERE cost = 1095
 AND description LIKE 'I%';
 
 REM (Rischert, 2010, 107)
+REM Despliega la descripción, costo y prerequisitos de los cursos cuyo
+REM costo sea 1195, el prerequisito 20 o 25.
 SELECT description, cost, prerequisite
 FROM course
 WHERE cost = 1195
@@ -84,6 +98,8 @@ AND prerequisite = 20
 OR prerequisite = 25;
 
 REM (Rischert, 2010, 108)	
+REM Despliega la descripción, costo y prerequisitos de los cursos cuyo
+REM costo sea 1195, el prerequisito 20 o 25.
 SELECT description, cost, prerequisite
 FROM course
 WHERE cost = 1195
@@ -91,44 +107,53 @@ AND (prerequisite = 20
 OR prerequisite = 25);
 
 REM (Rischert, 2010, 109)
+REM Despliega la descripción y prerequisitos de los cursos cuya descripción siga
+REM el patrón 'Intro to%' y cuyo prerequisito sea mayor o igual al 140.
+REM en SQL existe True, False y Unknown. Unknown no es mayor o menor que algo, entonces
+REM no se desplegaran las columnas donde el prerequisito sea NULL. 
+REM Null es Unknown
 SELECT description, prerequisite
 FROM course
 WHERE description LIKE 'Intro to%'
 AND prerequisite >= 140;
-	REM en SQL existe True, False y Unknown
 	
 REM (Rischert, 2010, 109)
+REM Despliega la descripción, prerequisitos y costo de los cursos cuyo prerequisito sea nulo.
 SELECT description, prerequisite, cost
 FROM course
 WHERE prerequisite IS NULL;
-	REM Null es considerado como Unknown, por lo que en la consulta anterior no se desplegará
-	REM ningúna tupla con este campo Null
 	
 REM (Rischert, 2010, 110)
+REM Despliega la descripción y prerequisitos de los cursos cuya descripción siga
+REM el patrón 'Intro to%' ó cuyo prerequisito sea mayor o igual al 140.
 SELECT description, prerequisite
 FROM course
 WHERE description LIKE 'Intro to%'
 OR prerequisite >= 140;
 
 REM (Rischert, 2010, 110)	
+REM Despliega la descripción y prerequisitos de los cursos cuyo prerequisito no sea mayor a 140.
+REM Not(Unknown) = Unknown (no se desplegarán Nulls)
 SELECT description, prerequisite
 FROM course
 WHERE NOT prerequisite >= 140;
-	REM Not(Unknown) = Unknown
 	
 REM (Rischert, 2010, 114)
+REM BETWEEN también funciona con texto.
+REM Selecciona los datos de los estudiantes cuyo apellido esté entre la W y Z
 SELECT student_id, last_name
 FROM student
 WHERE last_name BETWEEN 'W' AND 'Z';
-	REM BETWEEN también funciona con texto.
 
 REM (Rischert, 2010, 114)	
+REM Selecciona los datos de los estudiantes cuyo apellido esté entre la W y Z o entre la w y z
 SELECT student_id, last_name
 FROM student
 WHERE last_name BETWEEN 'W' AND 'Z'
 OR last_name BETWEEN 'w' AND 'z';
 
-REM (Rischert, 2010, 114)	
+REM (Rischert, 2010, 114)
+REM Selecciona las descripciones de los tipos de grado cuya descripción esté entre Midterm y Project.
 SELECT description
 FROM grade_type
 WHERE description BETWEEN 'Midterm' and 'Project';
@@ -187,64 +212,72 @@ REM |||||||||||||||||||||||||||||||||||||| 3.2 "The ORDER BY Clause" |||||||||||
 REM Rischert, A. (2010). Oracle SQL By Example.
 
 REM (Rischert, 2010, 118)
+REM Despliega el no. de curso y la descripción de los cursos donde el prerequisito es nulo
+REM y lo ordena de acuerdo a la descripción.
+REM La información no está guardada en ningún orden. ORDER BY nos permite darle un orden.
+REM En este caso, por orden alfabético.
 SELECT course_no, description
 FROM course
 WHERE prerequisite IS NULL
 ORDER BY description;
-	REM La información no está guardada en ningún orden. ORDER BY nos permite darle un orden.
-	REM En este caso, por orden alfabético.
 
 REM (Rischert, 2010, 119)
+REM Despliega el no. de curso y la descripción de los cursos donde el prerequisito es nulo
+REM y lo ordena de acuerdo a la descripción.
+REM Ordena en orden descendente. El default es ascendente(ASC).
 SELECT course_no, description
 FROM course
 WHERE prerequisite IS NULL
 ORDER BY description DESC;
-	REM Ordena en orden descendente. El default es ascendente(ASC).
 
 REM (Rischert, 2010, 119)	
+REM Despliega el no. de curso y la descripción de los cursos donde el prerequisito es nulo
+REM y lo ordena de acuerdo a la descripción (2da columna).
 SELECT course_no, description
 FROM course
 WHERE prerequisite IS NULL
 ORDER BY 2 DESC;
-	REM 2da columna.
 	
-REM (Rischert, 2010, 119)	
+REM (Rischert, 2010, 119)
+REM Da error porque ORDER BY requiere que la columna esté en la selección.
 SELECT DISTINCT first_name, last_name
 FROM student
 WHERE zip = '10025'
 ORDER BY student_id;
-	REM Da error porque ORDER BY requiere que la columna esté en la selección.
+	
 
 REM (Rischert, 2010, 120)
+REM Despliega los costos (que sean distintos) de los cursos. Estos estarán ordenados por costo.
+REM Ordena también nulls, pero los coloca al final.
 SELECT DISTINCT cost
 FROM course
 ORDER BY cost;
-	REM Ordena también nulls, pero los coloca al final.
 
 REM (Rischert, 2010, 120)
+REM Despliega los costos (que sean distintos) de los cursos. Estos estarán ordenados por costo.
+REM Se pueden poner los NULLS al inicio.
 SELECT DISTINCT cost
 FROM course
 ORDER BY cost NULLS FIRST
-	REM Se pueden poner los NULLS al inicio.
 
 REM (Rischert, 2010, 122)	
+REM Diferentes formas de darle un Alias a las columnas consultadas.
 SELECT first_name first,
 first_name "First Name",
 first_name AS "First"
 FROM student
 WHERE zip = '10025';
-	REM Diferentes formas de darle un Alias a las columnas consultadas.
 
 REM (Rischert, 2010, 122)
+REM Se pueden ordenar columnas específicas con el alias.
 SELECT first_name first, first_name "First Name",
 first_name AS "First"
 FROM student
 WHERE zip = '10025'
 ORDER BY "First Name";
-	REM Se pueden ordenar columnas específicas con el alias.
 	
 REM (Rischert, 2010, 123)
-REM COMENTARIOS
+REM Multiples formas de realizar COMENTARIOS
 /* Multi-line comment
 SELECT *
 FROM student;
@@ -255,7 +288,6 @@ FROM zipcode;
 SELECT instructor_id, -- Comment within a SQL statement!
 zip /* Another comment example */
 FROM instructor;
- REM Comentarios
  
 REM ====================================================================================================================
 
