@@ -244,7 +244,6 @@ SELECT DISTINCT first_name, last_name
 FROM student
 WHERE zip = '10025'
 ORDER BY student_id;
-	
 
 REM (Rischert, 2010, 120)
 REM Despliega los costos (que sean distintos) de los cursos. Estos estarán ordenados por costo.
@@ -258,7 +257,7 @@ REM Despliega los costos (que sean distintos) de los cursos. Estos estarán orde
 REM Se pueden poner los NULLS al inicio.
 SELECT DISTINCT cost
 FROM course
-ORDER BY cost NULLS FIRST
+ORDER BY cost NULLS FIRST;
 
 REM (Rischert, 2010, 122)	
 REM Diferentes formas de darle un Alias a las columnas consultadas.
