@@ -402,7 +402,7 @@ WHERE course_no IN (20, 100);
 DESCRIBE grade_summary;
 
 --(Rischert, 2010, 169)
---Despliega el id del estudiante, su grado midterm, el grado de su examen final y el grado quiz.
+--Despliega el id del estudiante, su calf midterm, el calf de su examen final y el calf quiz.
 --COALESCE es como NVL, pero permite evaluar multiple sustituciones para un valor nulo.
 --SINTAXIS: COALESCE(input_expression, substitution_expression_1, [, substitution_expression_n])
 SELECT student_id, midterm_grade, finalexam_grade, quiz_grade,
