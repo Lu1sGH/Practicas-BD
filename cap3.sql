@@ -164,6 +164,7 @@ WHERE description BETWEEN 'Midterm' and 'Project';
 	REM AND description <= 'Project';
 
 REM ====================================================================================================================
+REM													Ejercicios 3.1
 REM EJERCICIOS 3.1 
 REM a) Write a SELECT statement that lists the last names of students living in either zip code 10048, 11102, or 11209.
 SELECT last_name
@@ -289,6 +290,7 @@ zip /* Another comment example */
 FROM instructor;
  
 REM ====================================================================================================================
+REM													Ejercicios 3.2
 
 REM a) Write a SELECT statement that lists each city and zip code in New York or Connecticut. Sort the
 REM results in ascending order by zip code.

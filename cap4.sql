@@ -175,6 +175,8 @@ FROM student
 WHERE employer LIKE '%B\_B%' ESCAPE '\' ';
 
 --========================================================================================================================
+--													Ejercicios 4.1
+
 --a) Execute the following SQL statement. Based on the result, what is the purpose of the INITCAP function?
 SELECT description "Description",
 INITCAP(description) "Initcap Description"
@@ -348,6 +350,8 @@ SELECT DISTINCT cost + (cost * .10)
 FROM course;
 
 --========================================================================================================================
+--													Ejercicios 4.2
+
 --a) Describe the effect of the negative precision as a parameter of the ROUND function in the
 --following SQL statement.
 SELECT 10.245, ROUND(10.245, 1), ROUND(10.245, -1)
@@ -597,6 +601,8 @@ WHERE course_no IN (80, 20, 135, 450)
 ORDER BY 2;
 
 --========================================================================================================================
+--													Ejercicios 4.3
+
 --a) List the last names, first names, and phone numbers of students who do not have phone
 --numbers. Display 212-555-1212 for the phone number.
 SELECT first_name name, last_name Last_name,

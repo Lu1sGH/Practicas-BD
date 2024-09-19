@@ -175,6 +175,8 @@ FROM section
 WHERE TO_CHAR(start_date_time, 'fmDay') = 'Sunday'
 
 --========================================================================================================================
+--													Ejercicios 5.1
+
 --a) Display the course number, section ID, and starting date and time for sections taught on May 4, 2007.
 SELECT course_no, section_id, TO_CHAR(start_date_time, 'DD-MM-YYYY HH24:MI')
 FROM course
@@ -218,5 +220,310 @@ TO_CHAR(start_date_time, 'fmDay')||'.' AS "Start"
 FROM section
 WHERE section_id IN (146, 127, 121, 155, 110, 85, 148)
 ORDER BY TO_CHAR(start_date_time, 'D');
+
+--========================================================================================================================
+
+/*												CAP 5
+|||||||||||||||||||||||||||||||||||||| 5.2 "Performing Date and Time Math" ||||||||||||||||||||||||||||||||||||||
+Rischert, A. (2010). Oracle SQL By Example.
+*/
+
+--(Rischert, 2010, 210)
+--Despliega la fecha del sistema operativo de la maquina en la que se encuentra la DB.
+SELECT SYSDATE, TO_CHAR(SYSDATE, 'DD-MON-YYYY HH24:MI')
+FROM dual;
+
+--(Rischert, 2010, 210)
+--Despliega los días que faltan para el 01 de enero del 2025.
+SELECT TO_DATE('01-JAN-2025','DD-MON-YYYY')-TRUNC(SYSDATE) int,  --En enteros
+TO_DATE('01-JAN-2025','DD-MON-YYYY')-SYSDATE dec --En decimales
+FROM dual;
+
+--(Rischert, 2010, 211)
+--Despliega la hora actual del sistema, la que será en 3 horas, en un día y 36 horas después.
+--Los días se manejan como números enteros.
+SELECT TO_CHAR(SYSDATE, 'MM/DD HH24:MI:SS') now,
+TO_CHAR(SYSDATE+3/24, 'MM/DD HH24:MI:SS')
+AS now_plus_3hrs,
+TO_CHAR(SYSDATE+1, 'MM/DD HH24:MI:SS') tomorrow,
+TO_CHAR(SYSDATE+1.5, 'MM/DD HH24:MI:SS') AS
+"36Hrs from now"
+FROM dual;
+
+--(Rischert, 2010, 211)
+--Despliega la fecha de la víspera del nuevo año 2000 y la fecha del primer Domingo del año 2000.
+SELECT TO_CHAR(TO_DATE('12/31/1999','MM/DD/YYYY'),
+'MM/DD/YYYY DY') "New Year's Eve",
+TO_CHAR(NEXT_DAY(TO_DATE('12/31/1999',
+'MM/DD/YYYY'),
+'SUNDAY'),'MM/DD/YYYY DY')
+"First Sunday"
+FROM dual;
+
+--(Rischert, 2010, 212)
+--Despliega y redondea de dos formas diferentes la fecha del sistema.
+SELECT TO_CHAR(SYSDATE,'DD-MON-YYYY HH24:MI') now, 
+TO_CHAR(ROUND(SYSDATE),'DD-MON-YYYY HH24:MI') day, --Redondea a las 00:00
+TO_CHAR(ROUND(SYSDATE,'MM'),'DD-MON-YYYY HH24:MI') --Redondea al 1er día el mes más cercano usando 'MM'.
+mon
+FROM dual;
+
+--(Rischert, 2010, 212)
+--Despliega las fechas de inicio y la extracción de su mes, año y días
+-- de la tabla section en donde el mes de inicio sea el 4, y los ordena por mes.
+SELECT TO_CHAR(start_date_time, 'DD-MON-YYYY') "Start Date",
+EXTRACT(MONTH FROM start_date_time) "Month", --Extrae el mes
+EXTRACT(YEAR FROM start_date_time) "Year", --Extrae el año
+EXTRACT(DAY FROM start_date_time) "Day" --Extrae el día 
+FROM section
+WHERE EXTRACT(MONTH FROM start_date_time) = 4
+ORDER BY start_date_time;
+
+--(Rischert, 2010, 212)
+--Despliega la extracción de año, mes y día de una fecha en texto. La fecha está en ANSI format.
+SELECT EXTRACT(YEAR FROM DATE '2010-03-11') year, 
+EXTRACT(MONTH FROM DATE '2010-03-11') month,
+EXTRACT(DAY FROM DATE '2010-03-11') day
+FROM dual;
+
+--========================================================================================================================
+--													Ejercicios 5.2
+
+--a) Determine the number of days between February 13, 1964, and the last day of the February 1964.
+SELECT LAST_DAY(TO_DATE('13-FEB-1964','DD-MON-YYYY')) - TO_DATE('13-FEB-1964','DD-MON-YYYY') days
+FROM dual;
+
+--b) Compute the number of months between September 29, 1999, and August 17, 2007.
+SELECT MONTHS_BETWEEN(TO_DATE('17-AUG-2007','DD-MON-YYYY'), 
+TO_DATE('29-SEP-1999','DD-MON-YYYY')) months
+FROM dual;
+
+--c) Add three days to the current date and time.
+SELECT TO_CHAR(SYSDATE+3, 'DD-MON-YYYY HH24:MI:SS') "3 días después..."
+FROM dual;
+
+--========================================================================================================================
+
+/*												CAP 5
+||||||||||||||||||||||||||||| 5.3 "Understanding the TIMESTAMP and TIME ZONE Data Types"|||||||||||||||||||||||||||||
+Rischert, A. (2010). Oracle SQL By Example.
+*/
+
+--(Rischert, 2010, 221)
+--Despliega la fecha y hora (local) actual del sistema. Incluye en la hora los ms.
+SELECT LOCALTIMESTAMP
+FROM dual;
+
+--(Rischert, 2010, 222)
+--Despliega la fecha y hora actual del sistema. Incluye en la hora los ms y la zona horaria de acuerdo al UTC.
+SELECT SYSTIMESTAMP
+FROM dual;
+
+--(Rischert, 2010, 222)
+--Despliega el tiempo de la sesión (de la computadora de la sesión) y el tiempo local (del servidor).
+--CURRENT_TIMESTAMP incluye la zona horaria.
+--No tienen el mismo tipo de dato.
+SELECT CURRENT_TIMESTAMP, LOCALTIMESTAMP
+FROM dual;
+
+--(Rischert, 2010, 222)
+--Despliega la fecha y hora de la sesión (de la computadora de la sesión, no del servidor).
+SELECT TO_CHAR(CURRENT_DATE, 'DD-MON-YYYY HH:MI:SS PM') 
+FROM dual;
+
+--(Rischert, 2010, 223)
+--Despliega la zona horaria en la que se encuentra la sesión.
+SELECT SESSIONTIMEZONE
+FROM dual;
+
+--(Rischert, 2010, 224)
+--Cambia la zona horaria de la sesión.
+ALTER SESSION SET TIME_ZONE = 'America/New_York'; --A una región
+ALTER SESSION SET TIME_ZONE = dbtimezone; --A la misma del servidor
+ALTER SESSION SET TIME_ZONE = local; --Resetea a la zona horaria de la sesión.
+
+--(Rischert, 2010, 224)
+--Despliega la zona horaria del servidor.
+SELECT DBTIMEZONE
+FROM dual;
+
+--(Rischert, 2010, 225)
+--Despliega las dos timestaps (escritas en ANSI) convertidas de tiempo local a UTC.
+--SYS_EXTRACT_UTC convierte un valor de tipo TIMESTAMP WITH TIME ZONE a UTC.
+SELECT SYS_EXTRACT_UTC(TIMESTAMP '2009-02-11 7:00:00 -8:00')
+"West coast to UTC",
+SYS_EXTRACT_UTC(TIMESTAMP '2009-02-11 10:00:00 -5:00')
+"East coast to UTC"
+FROM dual;
+
+--(Rischert, 2010, 226)
+--Extrae la hora, los minutos, los segundos, el año, el mes y el día de la misma TIMESTAMP.
+--El tipo de dato es TIMESTAMP.
+SELECT EXTRACT(HOUR FROM TIMESTAMP '2009-02-11 15:48:01.123') hour,
+EXTRACT(MINUTE FROM TIMESTAMP '2009-02-11 15:48:01.123') minute,
+EXTRACT(SECOND FROM TIMESTAMP '2009-02-11 15:48:01.123') second,
+EXTRACT(YEAR FROM TIMESTAMP '2009-02-11 15:48:01.123') year,
+EXTRACT(MONTH FROM TIMESTAMP '2009-02-11 15:48:01.123') month,
+EXTRACT(DAY FROM TIMESTAMP '2009-02-11 15:48:01.123') day
+FROM dual;
+
+--(Rischert, 2010, 226)
+--Despliega col_timestamp_w_tz y extrae el año, mes, día, hora, minuto y segundos de este mismo, de la tabla date_example.
+--El tipo de dato de col_timestamp_w_tz es TIMESTAMP WITH TIME ZONE.
+SELECT col_timestamp_w_tz,
+EXTRACT(YEAR FROM col_timestamp_w_tz) year,
+EXTRACT(MONTH FROM col_timestamp_w_tz) month,
+EXTRACT(DAY FROM col_timestamp_w_tz) day,
+EXTRACT(HOUR FROM col_timestamp_w_tz) hour,
+EXTRACT(MINUTE FROM col_timestamp_w_tz) min,
+EXTRACT(SECOND FROM col_timestamp_w_tz) sec
+FROM date_example;
+
+--(Rischert, 2010, 227)
+--Despliega la zona, los minutos de la zona, la región y la abreviación de la zona.
+--Si la region no está configurada o es ambigua, tanto region y ABBR serán UNKNOWN.
+SELECT col_timestamp_w_tz,
+EXTRACT(TIMEZONE_HOUR FROM col_timestamp_w_tz) tz_hour,
+EXTRACT(TIMEZONE_MINUTE FROM col_timestamp_w_tz) tz_min,
+EXTRACT(TIMEZONE_REGION FROM col_timestamp_w_tz) tz_region,
+EXTRACT(TIMEZONE_ABBR FROM col_timestamp_w_tz) tz_abbr
+FROM date_example;
+
+--(Rischert, 2010, 227)
+--Describe el tipo de datos de las columnas de date_example.
+DESCRIBE date_example;
+
+--(Rischert, 2010, 228)
+--Despliega col_timestamp_w_tz de la tabla date_example donde col_timestamp_w_tz sea igual que a la TIMESTAMP
+-- 24-FEB-09 04.25.32.000000.
+--TO_TIMESTAMP_TZ convierte un texto en TIMESTAMP WITH TIME ZONE.
+SELECT col_timestamp_w_tz
+FROM date_example
+WHERE col_timestamp_w_tz = TO_TIMESTAMP_TZ
+('24-FEB-09 04.25.32.000000 PM -05:00',
+'DD-MON-RR HH.MI.SS.FF AM TZH:TZM');
+
+--(Rischert, 2010, 229)
+--Despliega col_timestamp_w_tz pero en la zona local 'America/Los_Angeles' y no en UTC.
+SELECT col_timestamp_w_tz AT TIME ZONE 'America/Los_Angeles'
+FROM date_example;
+ 
+--(Rischert, 2010, 229)
+--Despliega col_timestamp_w_tz pero en la zona UTC de la base de datos.
+SELECT col_timestamp_w_tz AT TIME ZONE DBTIMEZONE
+FROM date_example;
+
+--(Rischert, 2010, 232)
+--Se puede comparar TIMESTAMP y DATE porque Oracle hace la conversión automatica, dejando los ms en 0.
+SELECT col_timestamp
+FROM date_example
+WHERE col_timestamp = TO_DATE('24-FEB-2009 04:25:32 PM',
+'DD-MON-YYYY HH:MI:SS AM');
+
+--(Rischert, 2010, 233)
+--Despliega la conversión de col_date a TIMESTAMP y a CHAR.
+SELECT TO_TIMESTAMP(col_date) "TO_TIMESTAMP", --Pone la hora en la media noche
+TO_CHAR(col_date, 'DD-MON-YYYY HH24:MI')
+AS "DISPLAY DATE"
+FROM date_example;
+
+--(Rischert, 2010, 235)
+--Despliega la zona UTC de las siguientes regiones.
+SELECT TZ_OFFSET('Europe/London') "London",
+TZ_OFFSET('America/New_York') "NY",
+TZ_OFFSET('America/Chicago') "Chicago",
+TZ_OFFSET('America/Denver') "Denver",
+TZ_OFFSET('America/Los_Angeles') "LA"
+FROM dual;
+
+--(Rischert, 2010, 235)
+--Da error porque ya se está usando la máscara HH24 con A.M./P.M. Estos solo se pueden usar con HH o HH12.
+SELECT col_timestamp_w_tz
+FROM date_example
+WHERE col_timestamp_w_tz =
+TO_TIMESTAMP_TZ('24-FEB-2009 16:25:32 PM -05:00',
+'DD-MON-YYYY HH24:MI:SS PM TZH:TZM');
+
+--========================================================================================================================
+--													Ejercicios 5.3
+
+--a) Describe the default display formats of the result returned by the following SQL query.
+SELECT col_date, col_timestamp, col_timestamp_w_tz
+FROM date_example;
+/*
+COL_DATE  COL_TIMESTAMP 			   COL_TIMESTAMP_W_TZ
+--------- ---------------------------- ------------------
+24-FEB-09 24-FEB-09 04.25.32.000000 PM 24-FEB-09 04.25.32.000000 PM -05:00
+1 row selected.
+*/
+--Despliega los valores de las columnas col_date, col_timestamp y col_timestamp_w_tz en formato 
+--DD-MM-RR HH.MI.SS.FF AM +/- TZH:TZM.
+
+--b) Explain the result of the following SELECT statement. Are there alternate ways to rewrite the
+--query’s WHERE clause?
+SELECT col_timestamp
+FROM date_example
+WHERE col_timestamp = '24-FEB-09 04.25.32.000000 PM';
+/*
+COL_TIMESTAMP
+----------------------------
+24-FEB-09 04.25.32.000000 PM
+1 row selected.
+*/
+--Despliega el uso del tipo de dato TIMESTAMP. Se podría reescribir la condición con un
+--WHERE col_timestamp = TO_TIMESTAMP('24-FEB-2009 04:25:32.000000 PM', 'DD-MON-YYYY HH:MI:SS.FF AM')
+--para que la conversión sea explícita.
+
+--c) What function can you utilize to display the seconds component of a TIMESTAMP data type
+--column?
+--La función EXTRACT(SECOND FROM '') o TO_CHAR('', 'SS')
+
+--d) What do you observe about the text literal of the following query’s WHERE clause?
+SELECT col_timestamp_w_tz
+FROM date_example
+WHERE col_timestamp_w_tz = '24-FEB-09 04.25.32.000000 PM -05:00'
+/*
+COL_TIMESTAMP_W_TZ
+-----------------------------------
+24-FEB-09 04.25.32.000000 PM -05:00
+1 row selected.
+*/
+--Despliega la columna col_timestamp_w_tz usando un timestamp with timezone en forma textual.
+--La conversión se hace implícitamente.
+
+--e) The following SQL statements are issued against the database server. Explain the results.
+SELECT SESSIONTIMEZONE
+FROM dual;
+/*
+SESSIONTIMEZONE
+---------------
+-05:00
+1 row selected.
+*/
+SELECT col_timestamp_w_tz, col_timestamp_w_local_tz
+FROM date_example;
+/*
+COL_TIMESTAMP_W_TZ 					COL_TIMESTAMP_W_LOCAL_TZ
+----------------------------------- ----------------------------
+24-FEB-09 04.25.32.000000 PM -05:00 24-FEB-09 04.25.32.000000 PM
+1 row selected.
+*/
+ALTER SESSION SET TIME_ZONE = '-8:00';
+--Session altered.
+SELECT col_timestamp_w_tz, col_timestamp_w_local_tz
+FROM date_example;
+/*
+COL_TIMESTAMP_W_TZ 					COL_TIMESTAMP_W_LOCAL_TZ
+----------------------------------- ----------------------------
+24-FEB-09 04.25.32.000000 PM -05:00 24-FEB-09 01.25.32.000000 PM
+1 row selected.
+*/
+ALTER SESSION SET TIME_ZONE = '-5:00';
+--Session altered.
+
+--Muestra que al alterar el parámetro de la sesión a TIME_ZONE este solo afectará a la forma en la que
+-- se despliegan los TIMESTAMP WITH LOCAL TIMEZONE, ya que guardan de forma implícita la zona UTC pero al desplegarla
+-- hacen la conversión a la zona local. A diferencia de TIMESTAMP WITH TIMEZONE que si guarda la zona UTC explícitamente
+-- y al desplegarla no hace el ajuste a la zona local.
 
 --========================================================================================================================
