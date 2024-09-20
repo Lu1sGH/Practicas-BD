@@ -54,7 +54,7 @@ FROM student
 WHERE registration_date = TO_DATE('22-JAN-2007', 'DD-MON-YYYY');
 
 --(Rischert, 2010, 195)
---Despliega un error porque el formato de fehca tiene que concordar con el texto.
+--Despliega un error porque el formato de fecha tiene que concordar con el texto.
 SELECT last_name, registration_date
 FROM student
 WHERE registration_date = TO_DATE('22/01/2007', 'DD-MON-YYYY');
@@ -129,7 +129,7 @@ AND enroll_date < TIMESTAMP '2007-02-08 00:00:00';
 SELECT course_no, section_id,
 TO_CHAR(start_date_time, 'Day DD-Mon-YYYY HH:MI am')
 FROM section
-WHERE TO_CHAR(start_date_time, 'Day') = 'Sunday'
+WHERE TO_CHAR(start_date_time, 'Day') = 'Sunday';
 
 --(Rischert, 2010, 204)
 --Despliega el no. de curso, la id de la sección y la fecha de inicio de la tabla sección donde la 
@@ -138,7 +138,7 @@ WHERE TO_CHAR(start_date_time, 'Day') = 'Sunday'
 SELECT course_no, section_id,
 TO_CHAR(start_date_time, 'Day DD-Mon-YYYY HH:MI am')
 FROM section
-WHERE TO_CHAR(start_date_time, 'fmDay') = 'Sunday'
+WHERE TO_CHAR(start_date_time, 'fmDay') = 'Sunday';
 
 --(Rischert, 2010, 205)
 --Despliega el id de la sección y la fecha de inicio cuya fecha de inicio esté entre el 01 de julio y 31 de julio del 2007.
@@ -156,7 +156,7 @@ AND TO_CHAR(start_date_time, 'DD-MON-YYYY HH24:MI:SS')
 --No regresa nada porque '9' no está en el rango de '0' y '3'
 SELECT *
 FROM dual
-WHERE '9' BETWEEN '01' AND '31'
+WHERE '9' BETWEEN '01' AND '31';
 
 --(Rischert, 2010, 206)
 --'1' está en el rango de '0'  y '3', entonces regresa el contenido de dual (x);
@@ -171,7 +171,7 @@ AND '31-JUL-2007 23:59:59';
 SELECT course_no, section_id,
 TO_CHAR(start_date_time, 'Day DD-Mon-YYYY HH:MI am')
 FROM section
-WHERE TO_CHAR(start_date_time, 'fmDay') = 'Sunday'
+WHERE TO_CHAR(start_date_time, 'fmDay') = 'Sunday';
 
 --========================================================================================================================
 --													Ejercicios 5.1

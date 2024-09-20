@@ -1,11 +1,43 @@
+SQL> REM Zarate Lozano Luis Axel
+SQL> REM 3BM2
+SQL> 
+SQL> REM CAP 3
+SQL> REM |||||||||||||||||||||||||||||||||||||| 3.1 "The WHERE Clause" ||||||||||||||||||||||||||||||||||||||
+SQL> REM Rischert, A. (2010). Oracle SQL By Example.
+SQL> 
+SQL> set pagesize 300;
+SQL> set linesize 250;
+SQL> set colsep '||';
+SQL> set null n/Datos;
+SQL> 
+SQL> REM (Rischert, 2010, 103)
+SQL> REM Despliega datos del instructor donde el apellido sea igual 'Schorin'
+SQL> SELECT first_name, last_name, phone
+  2  FROM instructor
+  3  WHERE last_name = 'Schorin';
 
 FIRST_NAME               ||LAST_NAME                ||PHONE                                                                                                                                                                                               
 -------------------------||-------------------------||---------------                                                                                                                                                                                     
 Nina                     ||Schorin                  ||2125551212                                                                                                                                                                                          
 
+SQL> 
+SQL> REM (Rischert, 2010, 103)
+SQL> REM Despliega datos del instructor donde el apellido sea igual 'schorin'
+SQL> REM No se seleccionar谩 ninguna fila, porque se toman en cuenta may煤s y min煤s.
+SQL> SELECT first_name, last_name, phone
+  2  FROM instructor
+  3  WHERE last_name = 'schorin';
 
 ninguna fila seleccionada
 
+SQL> 
+SQL> 
+SQL> REM (Rischert, 2010, 103)
+SQL> REM Selecciona los datos del instructor
+SQL> REM donde el instructor es diferente(<>) de 'Schorin'
+SQL> SELECT first_name, last_name, phone
+  2  FROM instructor
+  3  WHERE last_name <> 'Schorin';
 
 FIRST_NAME               ||LAST_NAME                ||PHONE                                                                                                                                                                                               
 -------------------------||-------------------------||---------------                                                                                                                                                                                     
@@ -21,6 +53,12 @@ Irene                    ||Willig                   ||2125551212
 
 9 filas seleccionadas.
 
+SQL> 
+SQL> REM (Rischert, 2010, 104)
+SQL> REM Despliega la descripci贸n y costo de los cursos que cuesten m谩s de 1195
+SQL> SELECT description, cost
+  2  FROM course
+  3  WHERE cost >= 1195;
 
 DESCRIPTION                                       ||      COST                                                                                                                                                                                            
 --------------------------------------------------||----------                                                                                                                                                                                            
@@ -53,6 +91,13 @@ JDeveloper Techniques                             ||      1195
 
 26 filas seleccionadas.
 
+SQL> 
+SQL> REM (Rischert, 2010, 104)
+SQL> REM Despliega la descripci贸n y costo de los cursos cuyos costos est茅n entre
+SQL> REM 1000 y 1100.
+SQL> SELECT description, cost
+  2  FROM course
+  3  WHERE cost BETWEEN 1000 AND 1100;
 
 DESCRIPTION                                       ||      COST                                                                                                                                                                                            
 --------------------------------------------------||----------                                                                                                                                                                                            
@@ -60,6 +105,12 @@ Unix Tips and Techniques                          ||      1095
 Intro to Internet                                 ||      1095                                                                                                                                                                                            
 Intro to the Basic Language                       ||      1095                                                                                                                                                                                            
 
+SQL> 
+SQL> REM (Rischert, 2010, 105)
+SQL> REM Despliega la descripci贸n y costo de los cursos cuyo costo sea 1095 o 1595
+SQL> SELECT description, cost
+  2  FROM course
+  3  WHERE cost IN (1095, 1595);
 
 DESCRIPTION                                       ||      COST                                                                                                                                                                                            
 --------------------------------------------------||----------                                                                                                                                                                                            
@@ -68,12 +119,26 @@ Unix Tips and Techniques                          ||      1095
 Intro to Internet                                 ||      1095                                                                                                                                                                                            
 Intro to the Basic Language                       ||      1095                                                                                                                                                                                            
 
+SQL> 
+SQL> REM (Rischert, 2010, 105)
+SQL> REM Selecciona los datos del instructor cuyo apellido concuerde con el patr贸n 'S%'
+SQL> REM '%' denota m谩s car谩cteres antes o despu茅s del patr贸n.
+SQL> SELECT first_name, last_name, phone
+  2  FROM instructor
+  3  WHERE last_name LIKE 'S%';
 
 FIRST_NAME               ||LAST_NAME                ||PHONE                                                                                                                                                                                               
 -------------------------||-------------------------||---------------                                                                                                                                                                                     
 Nina                     ||Schorin                  ||2125551212                                                                                                                                                                                          
 Todd                     ||Smythe                   ||2125551212                                                                                                                                                                                          
 
+SQL> 
+SQL> REM (Rischert, 2010, 105)
+SQL> REM Selecciona los datos del instructor cuyo apellido concuerde con el patr贸n '_o%'
+SQL> REM '_' denota un car谩cter antes o despu茅s del patr贸n.
+SQL> SELECT first_name, last_name
+  2  FROM instructor
+  3  WHERE last_name LIKE '_o%';
 
 FIRST_NAME               ||LAST_NAME                                                                                                                                                                                                                      
 -------------------------||-------------------------                                                                                                                                                                                                      
@@ -81,6 +146,13 @@ Tom                      ||Wojick
 Anita                    ||Morris                                                                                                                                                                                                                         
 Charles                  ||Lowry                                                                                                                                                                                                                          
 
+SQL> 
+SQL> REM (Rischert, 2010, 106)
+SQL> REM Selecciona los datos del instructor cuyo apellido no concuerde con el patr贸n 'S%'
+SQL> REM Not nega los operadores anteriores.
+SQL> SELECT phone
+  2  FROM instructor
+  3  WHERE last_name NOT LIKE 'S%';
 
 PHONE                                                                                                                                                                                                                                                     
 ---------------                                                                                                                                                                                                                                           
@@ -95,6 +167,12 @@ PHONE
 
 8 filas seleccionadas.
 
+SQL> 
+SQL> REM (Rischert, 2010, 106)
+SQL> REM Despliega la descripci贸n y costo de los cursos cuyo prerequisito sea nulo
+SQL> SELECT description, prerequisite
+  2  FROM course
+  3  WHERE prerequisite IS NULL;
 
 DESCRIPTION                                       ||PREREQUISITE                                                                                                                                                                                          
 --------------------------------------------------||------------                                                                                                                                                                                          
@@ -103,12 +181,29 @@ Intro to Computers                                ||n/Datos
 Java for C/C++ Programmers                        ||n/Datos                                                                                                                                                                                               
 Operating Systems                                 ||n/Datos                                                                                                                                                                                               
 
+SQL> 
+SQL> REM (Rischert, 2010, 107)
+SQL> REM Despliega la descripci贸n y costo de los cursos cuyo costo sea 1095 y la
+SQL> REM descripci贸n siga el patr贸n 'I%'
+SQL> SELECT description, cost
+  2  FROM course
+  3  WHERE cost = 1095
+  4  AND description LIKE 'I%';
 
 DESCRIPTION                                       ||      COST                                                                                                                                                                                            
 --------------------------------------------------||----------                                                                                                                                                                                            
 Intro to Internet                                 ||      1095                                                                                                                                                                                            
 Intro to the Basic Language                       ||      1095                                                                                                                                                                                            
 
+SQL> 
+SQL> REM (Rischert, 2010, 107)
+SQL> REM Despliega la descripci贸n, costo y prerequisitos de los cursos cuyo
+SQL> REM costo sea 1195, el prerequisito 20 o 25.
+SQL> SELECT description, cost, prerequisite
+  2  FROM course
+  3  WHERE cost = 1195
+  4  AND prerequisite = 20
+  5  OR prerequisite = 25;
 
 DESCRIPTION                                       ||      COST||PREREQUISITE                                                                                                                                                                              
 --------------------------------------------------||----------||------------                                                                                                                                                                              
@@ -122,6 +217,15 @@ Database System Principles                        ||      1195||          25
 
 7 filas seleccionadas.
 
+SQL> 
+SQL> REM (Rischert, 2010, 108)
+SQL> REM Despliega la descripci贸n, costo y prerequisitos de los cursos cuyo
+SQL> REM costo sea 1195, el prerequisito 20 o 25.
+SQL> SELECT description, cost, prerequisite
+  2  FROM course
+  3  WHERE cost = 1195
+  4  AND (prerequisite = 20
+  5  OR prerequisite = 25);
 
 DESCRIPTION                                       ||      COST||PREREQUISITE                                                                                                                                                                              
 --------------------------------------------------||----------||------------                                                                                                                                                                              
@@ -134,12 +238,29 @@ Database System Principles                        ||      1195||          25
 
 6 filas seleccionadas.
 
+SQL> 
+SQL> REM (Rischert, 2010, 109)
+SQL> REM Despliega la descripci贸n y prerequisitos de los cursos cuya descripci贸n siga
+SQL> REM el patr贸n 'Intro to%' y cuyo prerequisito sea mayor o igual al 140.
+SQL> REM en SQL existe True, False y Unknown. Unknown no es mayor o menor que algo, entonces
+SQL> REM no se desplegaran las columnas donde el prerequisito sea NULL.
+SQL> REM Null es Unknown
+SQL> SELECT description, prerequisite
+  2  FROM course
+  3  WHERE description LIKE 'Intro to%'
+  4  AND prerequisite >= 140;
 
 DESCRIPTION                                       ||PREREQUISITE                                                                                                                                                                                          
 --------------------------------------------------||------------                                                                                                                                                                                          
 Intro to Programming                              ||         140                                                                                                                                                                                          
 Intro to Unix                                     ||         310                                                                                                                                                                                          
 
+SQL> 
+SQL> REM (Rischert, 2010, 109)
+SQL> REM Despliega la descripci贸n, prerequisitos y costo de los cursos cuyo prerequisito sea nulo.
+SQL> SELECT description, prerequisite, cost
+  2  FROM course
+  3  WHERE prerequisite IS NULL;
 
 DESCRIPTION                                       ||PREREQUISITE||      COST                                                                                                                                                                              
 --------------------------------------------------||------------||----------                                                                                                                                                                              
@@ -148,6 +269,14 @@ Intro to Computers                                ||n/Datos     ||      1195
 Java for C/C++ Programmers                        ||n/Datos     ||      1195                                                                                                                                                                              
 Operating Systems                                 ||n/Datos     ||      1195                                                                                                                                                                              
 
+SQL> 
+SQL> REM (Rischert, 2010, 110)
+SQL> REM Despliega la descripci贸n y prerequisitos de los cursos cuya descripci贸n siga
+SQL> REM el patr贸n 'Intro to%' 贸 cuyo prerequisito sea mayor o igual al 140.
+SQL> SELECT description, prerequisite
+  2  FROM course
+  3  WHERE description LIKE 'Intro to%'
+  4  OR prerequisite >= 140;
 
 DESCRIPTION                                       ||PREREQUISITE                                                                                                                                                                                          
 --------------------------------------------------||------------                                                                                                                                                                                          
@@ -167,6 +296,13 @@ DB Programming in Java                            ||         350
 
 13 filas seleccionadas.
 
+SQL> 
+SQL> REM (Rischert, 2010, 110)
+SQL> REM Despliega la descripci贸n y prerequisitos de los cursos cuyo prerequisito no sea mayor a 140.
+SQL> REM Not(Unknown) = Unknown (no se desplegar谩n Nulls)
+SQL> SELECT description, prerequisite
+  2  FROM course
+  3  WHERE NOT prerequisite >= 140;
 
 DESCRIPTION                                       ||PREREQUISITE                                                                                                                                                                                          
 --------------------------------------------------||------------                                                                                                                                                                                          
@@ -191,6 +327,13 @@ Unix Tips and Techniques                          ||         134
 
 18 filas seleccionadas.
 
+SQL> 
+SQL> REM (Rischert, 2010, 114)
+SQL> REM BETWEEN tambi茅n funciona con texto.
+SQL> REM Selecciona los datos de los estudiantes cuyo apellido est茅 entre la W y Z
+SQL> SELECT student_id, last_name
+  2  FROM student
+  3  WHERE last_name BETWEEN 'W' AND 'Z';
 
 STUDENT_ID||LAST_NAME                                                                                                                                                                                                                                     
 ----------||-------------------------                                                                                                                                                                                                                     
@@ -208,6 +351,13 @@ STUDENT_ID||LAST_NAME
 
 11 filas seleccionadas.
 
+SQL> 
+SQL> REM (Rischert, 2010, 114)
+SQL> REM Selecciona los datos de los estudiantes cuyo apellido est茅 entre la W y Z o entre la w y z
+SQL> SELECT student_id, last_name
+  2  FROM student
+  3  WHERE last_name BETWEEN 'W' AND 'Z'
+  4  OR last_name BETWEEN 'w' AND 'z';
 
 STUDENT_ID||LAST_NAME                                                                                                                                                                                                                                     
 ----------||-------------------------                                                                                                                                                                                                                     
@@ -225,6 +375,12 @@ STUDENT_ID||LAST_NAME
 
 11 filas seleccionadas.
 
+SQL> 
+SQL> REM (Rischert, 2010, 114)
+SQL> REM Selecciona las descripciones de los tipos de grado cuya descripci贸n est茅 entre Midterm y Project.
+SQL> SELECT description
+  2  FROM grade_type
+  3  WHERE description BETWEEN 'Midterm' and 'Project';
 
 DESCRIPTION                                                                                                                                                                                                                                               
 --------------------------------------------------                                                                                                                                                                                                        
@@ -232,6 +388,19 @@ Midterm
 Participation                                                                                                                                                                                                                                             
 Project                                                                                                                                                                                                                                                   
 
+SQL> 	     REM Equivalente a:
+SQL> 	     REM SELECT description
+SQL> 	     REM FROM grade_type
+SQL> 	     REM WHERE description >= 'Midterm'
+SQL> 	     REM AND description <= 'Project';
+SQL> 
+SQL> REM ====================================================================================================================
+SQL> REM												     Ejercicios 3.1
+SQL> REM EJERCICIOS 3.1
+SQL> REM a) Write a SELECT statement that lists the last names of students living in either zip code 10048, 11102, or 11209.
+SQL> SELECT last_name
+  2  FROM student
+  3  WHERE zip in ('10048', '11102', '11209');
 
 LAST_NAME                                                                                                                                                                                                                                                 
 -------------------------                                                                                                                                                                                                                                 
@@ -245,21 +414,44 @@ Williams
 
 7 filas seleccionadas.
 
+SQL> 
+SQL> REM b) Write a SELECT statement that lists the first and last names of instructors with the letter i (either
+SQL> REM uppercase or lowercase) in their last name, living in zip code 10025.
+SQL> SELECT first_name, last_name
+  2  FROM instructor
+  3  WHERE (last_name LIKE '%i%' OR last_name LIKE '%I%') AND zip = '10025';
 
 FIRST_NAME               ||LAST_NAME                                                                                                                                                                                                                      
 -------------------------||-------------------------                                                                                                                                                                                                      
 Tom                      ||Wojick                                                                                                                                                                                                                         
 Nina                     ||Schorin                                                                                                                                                                                                                        
 
+SQL> 
+SQL> REM c) Does the following statement contain an error? Explain
+SQL> SELECT last_name
+  2  FROM instructor
+  3  WHERE created_date = modified_by;
 WHERE created_date = modified_by
                      *
 ERROR en l韓ea 3:
 ORA-01858: se ha encontrado un car醕ter no num閞ico donde se esperaba uno num閞ico 
 
 
+SQL> 	     REM S铆, porque los tipos de datos no son los mismos.
+SQL> 
+SQL> REM d) What do you observe when you execute the following SQL statement?
+SQL> SELECT course_no, cost
+  2  FROM course
+  3  WHERE cost BETWEEN 1500 AND 1000;
 
 ninguna fila seleccionada
 
+SQL> 	     REM No rows selected, porque aunque existe el rango, el valor m谩s peque帽o debe ir primero
+SQL> 
+SQL> REM e) Execute the following query and determine how many rows the query returns.
+SQL> SELECT last_name, student_id
+  2  FROM student
+  3  WHERE ROWNUM <= 10;
 
 LAST_NAME                ||STUDENT_ID                                                                                                                                                                                                                     
 -------------------------||----------                                                                                                                                                                                                                     
@@ -276,6 +468,13 @@ Noviello                 ||       111
 
 10 filas seleccionadas.
 
+SQL> 	     REM Retorna 10 tuplas. (Puede regresar menos. Adem谩s, no tienen orden espec铆fico).
+SQL> 
+SQL> REM f) Write a SELECT statement that lists descriptions of courses for which there are prerequisites and
+SQL> REM that cost less than 1100.
+SQL> SELECT description
+  2  FROM course
+  3  WHERE prerequisite is not null and cost < 1100;
 
 DESCRIPTION                                                                                                                                                                                                                                               
 --------------------------------------------------                                                                                                                                                                                                        
@@ -283,11 +482,32 @@ Intro to Internet
 Intro to the Basic Language                                                                                                                                                                                                                               
 Unix Tips and Techniques                                                                                                                                                                                                                                  
 
+SQL> 
+SQL> REM g) Write a SELECT statement that lists the cost of courses without a known prerequisite; do not
+SQL> REM repeat the cost.
+SQL> SELECT distinct cost
+  2  FROM course
+  3  WHERE prerequisite is null;
 
       COST                                                                                                                                                                                                                                                
 ----------                                                                                                                                                                                                                                                
       1195                                                                                                                                                                                                                                                
 
+SQL> 	     REM distinct evita la repetici贸n.
+SQL> REM ====================================================================================================================
+SQL> 
+SQL> REM |||||||||||||||||||||||||||||||||||||| 3.2 "The ORDER BY Clause" ||||||||||||||||||||||||||||||||||||||
+SQL> REM Rischert, A. (2010). Oracle SQL By Example.
+SQL> 
+SQL> REM (Rischert, 2010, 118)
+SQL> REM Despliega el no. de curso y la descripci贸n de los cursos donde el prerequisito es nulo
+SQL> REM y lo ordena de acuerdo a la descripci贸n.
+SQL> REM La informaci贸n no est谩 guardada en ning煤n orden. ORDER BY nos permite darle un orden.
+SQL> REM En este caso, por orden alfab茅tico.
+SQL> SELECT course_no, description
+  2  FROM course
+  3  WHERE prerequisite IS NULL
+  4  ORDER BY description;
 
  COURSE_NO||DESCRIPTION                                                                                                                                                                                                                                   
 ----------||--------------------------------------------------                                                                                                                                                                                            
@@ -296,6 +516,15 @@ Unix Tips and Techniques
        146||Java for C/C++ Programmers                                                                                                                                                                                                                    
        310||Operating Systems                                                                                                                                                                                                                             
 
+SQL> 
+SQL> REM (Rischert, 2010, 119)
+SQL> REM Despliega el no. de curso y la descripci贸n de los cursos donde el prerequisito es nulo
+SQL> REM y lo ordena de acuerdo a la descripci贸n.
+SQL> REM Ordena en orden descendente. El default es ascendente(ASC).
+SQL> SELECT course_no, description
+  2  FROM course
+  3  WHERE prerequisite IS NULL
+  4  ORDER BY description DESC;
 
  COURSE_NO||DESCRIPTION                                                                                                                                                                                                                                   
 ----------||--------------------------------------------------                                                                                                                                                                                            
@@ -304,6 +533,14 @@ Unix Tips and Techniques
         20||Intro to Computers                                                                                                                                                                                                                            
         10||DP Overview                                                                                                                                                                                                                                   
 
+SQL> 
+SQL> REM (Rischert, 2010, 119)
+SQL> REM Despliega el no. de curso y la descripci贸n de los cursos donde el prerequisito es nulo
+SQL> REM y lo ordena de acuerdo a la descripci贸n (2da columna).
+SQL> SELECT course_no, description
+  2  FROM course
+  3  WHERE prerequisite IS NULL
+  4  ORDER BY 2 DESC;
 
  COURSE_NO||DESCRIPTION                                                                                                                                                                                                                                   
 ----------||--------------------------------------------------                                                                                                                                                                                            
@@ -312,12 +549,26 @@ Unix Tips and Techniques
         20||Intro to Computers                                                                                                                                                                                                                            
         10||DP Overview                                                                                                                                                                                                                                   
 
+SQL> 
+SQL> REM (Rischert, 2010, 119)
+SQL> REM Da error porque ORDER BY requiere que la columna est茅 en la selecci贸n.
+SQL> SELECT DISTINCT first_name, last_name
+  2  FROM student
+  3  WHERE zip = '10025'
+  4  ORDER BY student_id;
 ORDER BY student_id
          *
 ERROR en l韓ea 4:
 ORA-01791: no es una expresi髇 obtenida bajo SELECT 
 
 
+SQL> 
+SQL> REM (Rischert, 2010, 120)
+SQL> REM Despliega los costos (que sean distintos) de los cursos. Estos estar谩n ordenados por costo.
+SQL> REM Ordena tambi茅n nulls, pero los coloca al final.
+SQL> SELECT DISTINCT cost
+  2  FROM course
+  3  ORDER BY cost;
 
       COST                                                                                                                                                                                                                                                
 ----------                                                                                                                                                                                                                                                
@@ -326,6 +577,29 @@ ORA-01791: no es una expresi髇 obtenida bajo SELECT
       1595                                                                                                                                                                                                                                                
 n/Datos                                                                                                                                                                                                                                                   
 
+SQL> 
+SQL> REM (Rischert, 2010, 120)
+SQL> REM Despliega los costos (que sean distintos) de los cursos. Estos estar谩n ordenados por costo.
+SQL> REM Se pueden poner los NULLS al inicio.
+SQL> SELECT DISTINCT cost
+  2  FROM course
+  3  ORDER BY cost NULLS FIRST;
+
+      COST                                                                                                                                                                                                                                                
+----------                                                                                                                                                                                                                                                
+n/Datos                                                                                                                                                                                                                                                   
+      1095                                                                                                                                                                                                                                                
+      1195                                                                                                                                                                                                                                                
+      1595                                                                                                                                                                                                                                                
+
+SQL> 
+SQL> REM (Rischert, 2010, 122)
+SQL> REM Diferentes formas de darle un Alias a las columnas consultadas.
+SQL> SELECT first_name first,
+  2  first_name "First Name",
+  3  first_name AS "First"
+  4  FROM student
+  5  WHERE zip = '10025';
 
 FIRST                    ||First Name               ||First                                                                                                                                                                                               
 -------------------------||-------------------------||-------------------------                                                                                                                                                                           
@@ -333,6 +607,14 @@ Nicole                   ||Nicole                   ||Nicole
 Jerry                    ||Jerry                    ||Jerry                                                                                                                                                                                               
 Frank                    ||Frank                    ||Frank                                                                                                                                                                                               
 
+SQL> 
+SQL> REM (Rischert, 2010, 122)
+SQL> REM Se pueden ordenar columnas espec铆ficas con el alias.
+SQL> SELECT first_name first, first_name "First Name",
+  2  first_name AS "First"
+  3  FROM student
+  4  WHERE zip = '10025'
+  5  ORDER BY "First Name";
 
 FIRST                    ||First Name               ||First                                                                                                                                                                                               
 -------------------------||-------------------------||-------------------------                                                                                                                                                                           
@@ -340,6 +622,16 @@ Frank                    ||Frank                    ||Frank
 Jerry                    ||Jerry                    ||Jerry                                                                                                                                                                                               
 Nicole                   ||Nicole                   ||Nicole                                                                                                                                                                                              
 
+SQL> 
+SQL> REM (Rischert, 2010, 123)
+SQL> REM Multiples formas de realizar COMENTARIOS
+SQL> /* Multi-line comment
+SQL> SELECT *
+SQL> FROM student;
+SQL> */
+SQL> -- This is a single-line comment!
+SQL> SELECT DISTINCT state
+  2  FROM zipcode;
 
 ST                                                                                                                                                                                                                                                        
 --                                                                                                                                                                                                                                                        
@@ -356,6 +648,9 @@ GA
 
 10 filas seleccionadas.
 
+SQL> SELECT instructor_id, -- Comment within a SQL statement!
+  2  zip /* Another comment example */
+  3  FROM instructor;
 
 INSTRUCTOR_ID||ZIP                                                                                                                                                                                                                                        
 -------------||-----                                                                                                                                                                                                                                      
@@ -374,6 +669,16 @@ INSTRUCTOR_ID||ZIP
 
 10 filas seleccionadas.
 
+SQL> 
+SQL> REM ====================================================================================================================
+SQL> REM												     Ejercicios 3.2
+SQL> 
+SQL> REM a) Write a SELECT statement that lists each city and zip code in New York or Connecticut. Sort the
+SQL> REM results in ascending order by zip code.
+SQL> SELECT city, zip
+  2  FROM zipcode
+  3  WHERE state = 'NY' or state = 'CT'
+  4  ORDER BY zip;
 
 CITY                     ||ZIP                                                                                                                                                                                                                            
 -------------------------||-----                                                                                                                                                                                                                          
@@ -522,6 +827,13 @@ Endicott                 ||13760
 
 142 filas seleccionadas.
 
+SQL> 
+SQL> REM b) Write a SELECT statement that lists course descriptions and their prerequisite course numbers,
+SQL> REM sorted in ascending order by description. Do not list courses that do not have a prerequisite.
+SQL> SELECT description, prerequisite
+  2  FROM course
+  3  WHERE prerequisite is not null
+  4  ORDER BY description;
 
 DESCRIPTION                                       ||PREREQUISITE                                                                                                                                                                                          
 --------------------------------------------------||------------                                                                                                                                                                                          
@@ -554,6 +866,13 @@ Unix Tips and Techniques                          ||         134
 
 26 filas seleccionadas.
 
+SQL> 
+SQL> REM c) Show the salutation, first name, and last name of students with the last name Grant. Order the
+SQL> REM results by salutation in descending order and by first name in ascending order.
+SQL> SELECT salutation, first_name, last_name
+  2  FROM student
+  3  WHERE last_name = 'Grant'
+  4  ORDER BY salutation DESC, first_name ASC;
 
 SALUT||FIRST_NAME               ||LAST_NAME                                                                                                                                                                                                               
 -----||-------------------------||-------------------------                                                                                                                                                                                               
@@ -562,6 +881,11 @@ Ms.  ||Verona                   ||Grant
 Mr.  ||Omaira                   ||Grant                                                                                                                                                                                                                   
 Mr.  ||Scott                    ||Grant                                                                                                                                                                                                                   
 
+SQL> 
+SQL> REM d) Execute the following query. What do you observe about the last row returned by the query?
+SQL> SELECT student_id, last_name
+  2  FROM student
+  3  ORDER BY last_name;
 
 STUDENT_ID||LAST_NAME                                                                                                                                                                                                                                     
 ----------||-------------------------                                                                                                                                                                                                                     
@@ -836,3 +1160,9 @@ STUDENT_ID||LAST_NAME
 
 268 filas seleccionadas.
 
+SQL> 	     REM Todo apareci贸 en orden (se esperaba que
+SQL> 	     REM las min煤s fueran despu茅s de todas las may煤s).
+SQL> 
+SQL> REM ====================================================================================================================
+SQL> 
+SQL> SPOOL OFF

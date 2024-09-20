@@ -60,7 +60,7 @@ FROM dual;
 --Despliega el sig valor, que no existe en ninguna tabla, a través de dual.
 --Si no recibe parámetros, quita los espacios en blanco.
 SELECT TRIM(' 00012345 00 ') AS "Blank Trim" 
-FROM dual
+FROM dual;
 --Ej. [00012345 00] 
 
 --(Rischert, 2010, 139)
