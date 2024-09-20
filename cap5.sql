@@ -1,3 +1,4 @@
+SPOOL C:\guest\schemasetup\Cap5OUT.txt
 /*												CAP 5
 |||||||||||||||||||||||||||||||||||||| 5.1 "Applying Oracle's Date Format Models" ||||||||||||||||||||||||||||||||||||||
 Rischert, A. (2010). Oracle SQL By Example.
@@ -5,8 +6,6 @@ Rischert, A. (2010). Oracle SQL By Example.
 
 set pagesize 300;
 set linesize 250;
-col parameter format a36;
-col value format a35;
 set colsep '|||';
 set null Nulo;
 
@@ -521,9 +520,331 @@ COL_TIMESTAMP_W_TZ 					COL_TIMESTAMP_W_LOCAL_TZ
 ALTER SESSION SET TIME_ZONE = '-5:00';
 --Session altered.
 
---Muestra que al alterar el parámetro de la sesión a TIME_ZONE este solo afectará a la forma en la que
--- se despliegan los TIMESTAMP WITH LOCAL TIMEZONE, ya que guardan de forma implícita la zona UTC pero al desplegarla
--- hacen la conversión a la zona local. A diferencia de TIMESTAMP WITH TIMEZONE que si guarda la zona UTC explícitamente
--- y al desplegarla no hace el ajuste a la zona local.
+--Al modificar el parámetro TIME_ZONE, solo afecta la forma en que se muestran los valores de tipo TIMESTAMP WITH LOCAL TIME
+--ZONE. Estos valores almacenan internamente la fecha y hora en UTC, pero cuando se consultan, se convierten automáticamente a
+--la zona horaria de la sesión. Esto los diferencia de los valores TIMESTAMP WITH TIME ZONE, que almacenan explícitamente la
+--zona horaria con la que fueron guardados y al consultarse, no ajustan su valor a la zona horaria de la sesión.
 
 --========================================================================================================================
+
+/*												CAP 5
+||||||||||||||||||||||||||||| 5.4 "Performing Calculations with the Interval Data Types"|||||||||||||||||||||||||||||
+Rischert, A. (2010). Oracle SQL By Example.
+*/
+
+--(Rischert, 2010, 240)
+--Despliega el id del estudiante, su fecha de regristro y su "fecha de graduación" cuya id sea 123.
+--TO_YMINTERVAL('01-06') representa 1 año y 6 meses, y se suma a la fecha de registro.
+SELECT student_id, registration_date,
+registration_date+TO_YMINTERVAL('01-06') "Grad. Date"
+FROM student
+WHERE student_id = 123;
+
+--(Rischert, 2010, 241)
+--Extrae los minutos del intervalo de 12 horas y 51 minutos.
+SELECT EXTRACT(MINUTE FROM INTERVAL '12:51' HOUR TO MINUTE)
+FROM dual;
+
+--(Rischert, 2010, 241)
+--Despliega la fecha de creación, la fecha de inicio, la diferencia entre la fecha de inicio y creación (en decimales)
+-- y la diferencia en días, horas, minutos, segundos y ms.
+SELECT DISTINCT TO_CHAR(created_date, 'DD-MON-YY HH24:MI') 
+"CREATED_DATE",
+TO_CHAR(start_date_time, 'DD-MON-YY HH24:MI')
+"START_DATE_TIME",
+start_date_time-created_date "Decimal",
+NUMTODSINTERVAL(start_date_time-created_date,'DAY')
+"Interval"
+FROM section
+ORDER BY 3;
+
+--(Rischert, 2010, 242)
+--Despliega el valor de col_timestamp y la diferencia entre SYSTIMESTAMP y col_timestamp expresada en días,
+-- horas, minutos, segundos y ms.
+--La precisión de DAY es puesta en 4 para aceptar números más largos.
+SELECT col_timestamp,
+(SYSTIMESTAMP - col_timestamp) DAY(4) TO SECOND
+"Interval Day to Second"
+FROM date_example;
+
+--(Rischert, 2010, 243)
+--Despliega el valor de col_timestamp, la diferencia entre SYSTIMESTAMP y col_timestamp y lo expresa en un
+-- intervalo de años-meses.
+SELECT col_timestamp,
+(SYSTIMESTAMP - col_timestamp) YEAR TO MONTH
+"Interval Year to Month"
+FROM date_example;
+
+--(Rischert, 2010, 243)
+--Describe las columnas de la tabla meeting.
+DESCRIBE meeting;
+
+--(Rischert, 2010, 243)
+--Despliega la id de las juntas, su fecha y hora de inicio y fin de la tabla meeting. 
+SELECT meeting_id,
+TO_CHAR(meeting_start, 'DD-MON-YYYY HH:MI PM') "Start",
+TO_CHAR(meeting_end, 'DD-MON-YYYY HH:MI PM') "End"
+FROM meeting;
+
+--(Rischert, 2010, 244)
+--Despliega la id de las juntas, su fecha y hora de inicio y fin de la tabla meeting, donde la fecha de inicio
+-- y fin se superponen al día 1 de Julio del 2009 a las 3:30 PM en un intervalo de 2 horas.
+SELECT meeting_id,
+TO_CHAR(meeting_start, 'dd-mon-yyyy hh:mi pm') "Start",
+TO_CHAR(meeting_end, 'dd-mon-yyyy hh:mi pm') "End"
+FROM meeting
+WHERE (meeting_start, meeting_end)
+OVERLAPS
+(to_date('01-JUL-2009 3:30 PM', 'DD-MON-YYYY HH:MI PM'),
+INTERVAL '2' HOUR);
+
+--(Rischert, 2010, 244)
+--Despliega la id de las juntas, su fecha y hora de inicio y fin de la tabla meeting, donde la fecha de inicio
+-- y fin NO se superponen al día 1 de Julio del 2009 a las 3:30 PM en un intervalo de 2 horas.
+SELECT meeting_id,
+TO_CHAR(meeting_start, 'DD-MON-YYYY HH:MI PM') "Start",
+TO_CHAR(meeting_end, 'DD-MON-YYYY HH:MI PM') "End"
+FROM meeting
+WHERE NOT (meeting_start, meeting_end)
+OVERLAPS
+(TO_DATE('01-JUL-2009 3:30PM', 'DD-MON-YYYY HH:MI PM'),
+INTERVAL '2' HOUR);
+--SINTAXIS: event OVERLAPS event
+
+--========================================================================================================================
+--													Ejercicios 5.4
+
+--a) Explain the result of the following SQL statement.
+--Despliega, de la tabla section, la id de la sección, la fecha de creación, la fecha de inicio y el intervalo de días y
+-- horas que hay entre la fecha de creación y de inicio, donde el intervalo está entre los 100 y 120 días.
+--El despliegue se hace en orden del menor intervalo al mayor.
+SELECT section_id "ID",
+TO_CHAR(created_date, 'MM/DD/YY HH24:MI')
+"CREATED_DATE",
+TO_CHAR(start_date_time, 'MM/DD/YY HH24:MI')
+"START_DATE_TIME",
+NUMTODSINTERVAL(start_date_time-created_date, 'DAY')
+"Interval"
+FROM section
+WHERE NUMTODSINTERVAL(start_date_time-created_date, 'DAY')
+BETWEEN INTERVAL '100' DAY(3) AND INTERVAL '120' DAY(3)
+ORDER BY 3;
+/*
+ID 	CREATED_DATE   START_DATE_TIM Interval
+--- -------------- -------------- ----------------------
+79 	01/02/07 00:00 04/14/07 09:30 102 09:29:59.999999999
+87 	01/02/07 00:00 04/14/07 09:30 102 09:29:59.999999999
+...
+152 01/02/07 00:00 04/29/07 09:30 117 09:29:59.999999999
+125 01/02/07 00:00 04/29/07 09:30 117 09:29:59.999999999
+17 rows selected.
+*/
+
+--b) Explain the result of the following SQL statements. What do you observe?
+SELECT NUMTODSINTERVAL(360, 'SECOND'),
+NUMTODSINTERVAL(360, 'MINUTE')
+FROM dual;
+/*
+NUMTODSINTERVAL(360,'SECOND') NUMTODSINTERVAL(360,'MINUTE')
+----------------------------- -----------------------------
+0 0:6:0.0 					  0 6:0:0.0
+1 row selected.
+*/
+--Despliega el intervalo de 360 segundos expresados en 6 minutos y también el intervalo de 360 minutos
+-- expresado en 6 horas.
+--El NUM es interpretado de acuerdo al segundo parámetro.
+
+SELECT NUMTODSINTERVAL(360, 'HOUR'),
+NUMTODSINTERVAL(360, 'DAY')
+FROM dual;
+/*
+NUMTODSINTERVAL(360,'HOUR')   NUMTODSINTERVAL(360,'DAY')
+----------------------------- -----------------------------
+15 0:0:0.0 					  360 0:0:0.0
+1 row selected.
+*/
+--Despliega el intervalo de 360 horas expresados en 15 días y también el intervalo de 360 días
+-- expresado en 360 días.
+
+--Si NUM excede el rango de los valores que puede aceptar, ej. las horas, lo expresa en días, y si hay
+-- resto, este se expresa en horas.
+--========================================================================================================================
+
+/*												CAP 5
+||||||||||||||||||||||||||||||||||| 5.5 "Converting from One Data Type to Another" |||||||||||||||||||||||||||||||||||
+Rischert, A. (2010). Oracle SQL By Example.
+*/
+
+--(Rischert, 2010, 249)
+--Despliega, de la tabla course, el no. de curso y la descripción donde el no. de curso sea igual a 350.
+--Se hace una conversión implícita de '350' a 350 (número).
+SELECT course_no, description
+FROM course
+WHERE course_no = '350';
+
+--(Rischert, 2010, 250)
+--Describe las columnas de la tabla conversion_example.
+DESCRIBE conversion_example;
+
+--(Rischert, 2010, 250)
+--Despliega todas las tuplas de la tabla conversion_example.
+SELECT *
+FROM conversion_example;
+
+--(Rischert, 2010, 250)
+--Despliega, de la tabla conversion_example, la tupla donde el no. de curso es igual a '123'.
+SELECT *
+FROM conversion_example
+WHERE course_no = '123';
+
+--(Rischert, 2010, 250)
+--Da un error, porque implicitamente se van a convertir los valores de la columna course_no a números, pero no
+--todos los valores son aptos para esta conversión.
+SELECT *
+FROM conversion_example
+WHERE course_no = 123;
+
+--(Rischert, 2010, 251)
+--Despliega, de la tabla conversion_example, la tupla donde el no. de curso es igual a '123'.
+--Hace una conversión explícita para evitar el error anterior.
+SELECT *
+FROM conversion_example
+WHERE course_no = TO_CHAR(123);
+
+--(Rischert, 2010, 251)
+--Despliega, de la tabla conversion_example, la tupla donde el no. de curso es igual a '123'.
+--La func CAST() hace una conversión de un tipo de dato a otro. 
+--En este caso, hay que especificar el tamaño.
+SELECT *
+FROM conversion_example
+WHERE course_no = CAST(123 AS VARCHAR2(3));
+
+--(Rischert, 2010, 251)
+--Despliega la fecha 29 de marzo del 2009 como tipo DATE y TIMESTAMP WITH LOCAL TIME ZONE.
+--La fecha se da en texto y se le aplica un casteo a los tipos correspondientes.
+SELECT CAST('29-MAR-09' AS DATE) DT,
+CAST('29-MAR-09' AS TIMESTAMP WITH LOCAL TIME ZONE) TZ
+FROM dual;
+
+--(Rischert, 2010, 252)
+--Despliega, de la tabla section, la id de la sección y la fecha de inicio en donde la fecha de inicio
+--esté entre el primer y último día de julio del 2007.
+--Las fechas en la condición se dan como textos pero se les aplica un casteo.
+SELECT section_id,
+TO_CHAR(start_date_time, 'DD-MON-YYYY HH24:MI:SS')
+FROM section
+WHERE start_date_time >= CAST('01-JUL-2007' AS DATE)
+AND start_date_time < CAST('01-AUG-2007' AS DATE)
+
+--(Rischert, 2010, 252)
+--Despliega la fecha 4 de Julio del 2007 con la hora de las 7 AM (por la zona horaria).
+--Aplica un casteo al texto '04-JUL-2007 10:00:00 AM' para convertirlo a un tipo timestamp, ya que 
+--la función FROM_TZ() requiere como primer parámetro ese tipo de dato.
+SELECT FROM_TZ(CAST('04-JUL-2007 10:00:00 AM' AS TIMESTAMP),
+'America/New_York') AT TIME ZONE 'America/Los_Angeles'
+"FROM_TZ Example"
+FROM dual;
+
+--(Rischert, 2010, 252)
+--Despliega 3 veces el intervalo de 1 año y 6 meses.
+--Hay diferentes formas de hacer lo mismo.
+SELECT CAST('1-6' AS INTERVAL YEAR TO MONTH) "CAST",
+TO_YMINTERVAL('1-6') "TO_YMINTERVAL",
+NUMTOYMINTERVAL(1.5, 'YEAR') "NUMTOYMINTERVAL"
+FROM dual;
+
+--(Rischert, 2010, 253)
+--Despliega el costo, de la tabla course, como BINARY_FLOAT de aquellos cursos cuyo no. de curso sea menor a 80.
+SELECT CAST(cost AS BINARY_FLOAT) AS cast,
+TO_BINARY_FLOAT(cost) AS to_binary_float
+FROM course
+WHERE course_no < 80;
+
+--(Rischert, 2010, 254)
+--Despliega, de la tabla course, el no. de curso, el costo y el costo, pero con formato, de aquellos cursos cuyo no.
+--de curso sea menor a 25.
+SELECT course_no, cost,
+TO_CHAR(cost, '999,999') formatted
+FROM course
+WHERE course_no < 25;
+
+--(Rischert, 2010, 254)
+--Despliega, de la tabla course, el no. de curso, el costo y el costo, pero con formato, de aquellos cursos cuyo no.
+--de curso sea menor a 25.
+--El formato ahora se aplica únicamente para la columna "SQL*PLUS" y para la columna "CHAR" mediante la fun TO_CHAR().
+COL "SQL*PLUS" FORMAT 999,999;
+SELECT course_no, cost "SQL*PLUS",
+TO_CHAR(cost, '999,999') "CHAR"
+FROM course
+WHERE course_no < 25;
+
+--========================================================================================================================
+--													Ejercicios 5.5
+
+/*Use the following SQL statement as the source query for Exercises a through c.
+SELECT zip, city
+FROM zipcode
+WHERE zip = 10025;*/
+
+--a) Rewrite the query, using the TO_CHAR function in the WHERE clause.
+SELECT zip, city
+FROM zipcode
+WHERE zip = TO_CHAR(10025);
+
+--b) Rewrite the query, using the TO_NUMBER function in the WHERE clause.
+SELECT zip, city
+FROM zipcode
+WHERE TO_NUMBER(zip) = 10025;
+
+--c) Rewrite the query, using CAST in the WHERE clause.
+SELECT zip, city
+FROM zipcode
+WHERE zip = CAST(10025 AS VARCHAR2(5));
+
+--d) Write the SQL statement that displays the following result. Note that the last column in the result
+--shows the formatted COST column with a leading dollar sign and a comma to separate the
+--thousands. Include the cents in the result as well.
+/*
+COURSE_NO COST 		FORMATTED
+--------- --------- ---------
+330 	  1195 		$1,195.00
+1 row selected.
+*/
+SELECT course_no, cost, TO_CHAR(cost, '$999,999.99') AS "FORMATTED"
+FROM course
+WHERE course_no = 330;
+
+--e) List the COURSE_NO and COST columns for courses that cost more than 1500. The third, fourth,
+--and fifth columns show the cost increased by 15 percent. Display the increased cost columns, one
+--with a leading dollar sign, and separate the thousands, and in another column show the same
+--formatting but rounded to the nearest dollar. The result should look similar to the following
+--output.
+/*
+COURSE_NO  OLDCOST 	  NEWCOST  FORMATTED  ROUNDED
+---------- ---------- -------- ---------- ----------
+80 		   1595 	  1834.25  $1,834.25  $1,834.00
+1 row selected
+*/
+SELECT course_no, cost AS "OLDCOST",
+cost*1.15 AS "NEWCOST",
+TO_CHAR(cost*1.15, '$999,999.99') AS "FORMATTED",
+TO_CHAR(ROUND(cost*1.15), '$999,999.99') AS "ROUNDED"
+FROM course
+WHERE cost > 1500;
+
+--f) Based on Exercise e, write the query to achieve this result. Use the fm format mask to eliminate
+--the extra spaces.
+/*
+Increase
+---------------------------------------------------------
+The price for course# 80 has been increased to $1,834.25.
+1 row selected.
+*/
+
+SELECT 'The price for course# '||course_no||' has been increased to '||TO_CHAR(cost*1.15, 'fm$999,999.99')||'.'
+FROM course
+WHERE cost > 1500;
+
+--========================================================================================================================
+
+SPOOL OFF

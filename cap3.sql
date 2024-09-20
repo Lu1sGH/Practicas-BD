@@ -8,8 +8,6 @@ REM Rischert, A. (2010). Oracle SQL By Example.
 
 set pagesize 300;
 set linesize 250;
-col parameter format a36;
-col value format a35;
 set colsep '||';
 set null n/Datos;
 
