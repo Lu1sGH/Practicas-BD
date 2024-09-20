@@ -845,6 +845,7 @@ SELECT 'The price for course# '||course_no||' has been increased to '||TO_CHAR(c
 FROM course
 WHERE cost > 1500;
 
+
 --========================================================================================================================
 
 SPOOL OFF
