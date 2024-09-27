@@ -1,0 +1,216 @@
+DROP VIEW VISTA_E9
+*
+ERROR en línea 1:
+ORA-00942: la tabla o vista no existe 
+
+
+DROP VIEW VISTA_E8
+*
+ERROR en línea 1:
+ORA-00942: la tabla o vista no existe 
+
+
+DROP VIEW VISTA_E7
+*
+ERROR en línea 1:
+ORA-00942: la tabla o vista no existe 
+
+
+DROP VIEW VISTA_E6
+*
+ERROR en línea 1:
+ORA-00942: la tabla o vista no existe 
+
+
+DROP VIEW VISTA_E5
+*
+ERROR en línea 1:
+ORA-00942: la tabla o vista no existe 
+
+
+DROP VIEW VISTA_E4
+*
+ERROR en línea 1:
+ORA-00942: la tabla o vista no existe 
+
+
+DROP VIEW VISTA_E3
+*
+ERROR en línea 1:
+ORA-00942: la tabla o vista no existe 
+
+
+DROP VIEW VISTA_E2
+*
+ERROR en línea 1:
+ORA-00942: la tabla o vista no existe 
+
+
+DROP VIEW VISTA_E1
+*
+ERROR en línea 1:
+ORA-00942: la tabla o vista no existe 
+
+
+
+Vista creada.
+
+
+Vista creada.
+
+
+Vista creada.
+
+
+Vista creada.
+
+
+Vista creada.
+
+
+Vista creada.
+
+
+Vista creada.
+
+
+Vista creada.
+
+
+Vista creada.
+
+
+LNAME                                                                                                                                                                                                                                                                                                       
+---------------                                                                                                                                                                                                                                                                                             
+Smith                                                                                                                                                                                                                                                                                                       
+English                                                                                                                                                                                                                                                                                                     
+
+
+PNAME          | * |   PNUMBER| * |PLOCATION      | * |      DNUM                                                                                                                                                                                                                                           
+---------------| * |----------| * |---------------| * |----------                                                                                                                                                                                                                                           
+ProductX       | * |         1| * |Bellaire       | * |         5                                                                                                                                                                                                                                           
+
+
+
+   PNUMBER                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+         1                                                                                                                                                                                                                                                                                                  
+
+
+
+      ESSN| * |       PNO                                                                                                                                                                                                                                                                                   
+----------| * |----------                                                                                                                                                                                                                                                                                   
+ 123456789| * |         1                                                                                                                                                                                                                                                                                   
+ 123456789| * |         2                                                                                                                                                                                                                                                                                   
+ 333445555| * |         2                                                                                                                                                                                                                                                                                   
+ 333445555| * |         3                                                                                                                                                                                                                                                                                   
+ 333445555| * |        10                                                                                                                                                                                                                                                                                   
+ 333445555| * |        20                                                                                                                                                                                                                                                                                   
+ 453453453| * |         1                                                                                                                                                                                                                                                                                   
+ 453453453| * |         2                                                                                                                                                                                                                                                                                   
+ 666884444| * |         3                                                                                                                                                                                                                                                                                   
+ 888665555| * |        20                                                                                                                                                                                                                                                                                   
+ 987654321| * |        20                                                                                                                                                                                                                                                                                   
+ 987654321| * |        30                                                                                                                                                                                                                                                                                   
+ 987987987| * |        10                                                                                                                                                                                                                                                                                   
+ 987987987| * |        30                                                                                                                                                                                                                                                                                   
+ 999887777| * |        10                                                                                                                                                                                                                                                                                   
+ 999887777| * |        30                                                                                                                                                                                                                                                                                   
+
+16 filas seleccionadas.
+
+
+
+   PNUMBER| * |      ESSN| * |       PNO                                                                                                                                                                                                                                                                    
+----------| * |----------| * |----------                                                                                                                                                                                                                                                                    
+         1| * | 123456789| * |         1                                                                                                                                                                                                                                                                    
+         1| * | 453453453| * |         1                                                                                                                                                                                                                                                                    
+
+
+
+      ESSN                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+ 123456789                                                                                                                                                                                                                                                                                                  
+ 453453453                                                                                                                                                                                                                                                                                                  
+
+
+
+FNAME          | * |M| * |LNAME          | * |       SSN| * |BDATE   | * |ADDRESS                  | * |S| * |    SALARY| * |SUPER_SSN| * |       DNO                                                                                                                                                       
+---------------| * |-| * |---------------| * |----------| * |--------| * |-------------------------| * |-| * |----------| * |---------| * |----------                                                                                                                                                       
+John           | * |B| * |Smith          | * | 123456789| * |09/01/65| * |731_Fondren,_Houston,_TX | * |M| * |     30000| * |333445555| * |         5                                                                                                                                                       
+Alcia          | * |J| * |Zelaya         | * | 999887777| * |19/01/68| * |9921_Castle,_Spring,_TX  | * |F| * |     25000| * |987654321| * |         4                                                                                                                                                       
+Ramesh         | * |K| * |Narayan        | * | 666884444| * |15/09/62| * |975_Fire_Oak,_Humble,_TX | * |M| * |     38000| * |333445555| * |         5                                                                                                                                                       
+Joyce          | * |A| * |English        | * | 453453453| * |31/07/72| * |5691_Rice,_Houston,_TX   | * |F| * |     25000| * |333445555| * |         5                                                                                                                                                       
+Ahmad          | * |V| * |Jabbar         | * | 987987987| * |29/03/69| * |980_Dallas,_Houston,_TX  | * |M| * |     25000| * |987654321| * |         4                                                                                                                                                       
+
+
+
+       SSN| * |LNAME                                                                                                                                                                                                                                                                                        
+----------| * |---------------                                                                                                                                                                                                                                                                              
+ 123456789| * |Smith                                                                                                                                                                                                                                                                                        
+ 999887777| * |Zelaya                                                                                                                                                                                                                                                                                       
+ 666884444| * |Narayan                                                                                                                                                                                                                                                                                      
+ 453453453| * |English                                                                                                                                                                                                                                                                                      
+ 987987987| * |Jabbar                                                                                                                                                                                                                                                                                       
+
+
+
+      ESSN| * |       SSN| * |LNAME                                                                                                                                                                                                                                                                         
+----------| * |----------| * |---------------                                                                                                                                                                                                                                                               
+ 123456789| * | 123456789| * |Smith                                                                                                                                                                                                                                                                         
+ 453453453| * | 453453453| * |English                                                                                                                                                                                                                                                                       
+
+
+
+LNAME                                                                                                                                                                                                                                                                                                       
+---------------                                                                                                                                                                                                                                                                                             
+Smith                                                                                                                                                                                                                                                                                                       
+English                                                                                                                                                                                                                                                                                                     
+
+
+CIFRAS CONTROL
+
+  VISTA_E1                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+         1                                                                                                                                                                                                                                                                                                  
+
+
+  VISTA_E2                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+         1                                                                                                                                                                                                                                                                                                  
+
+
+  VISTA_E3                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+        16                                                                                                                                                                                                                                                                                                  
+
+
+  VISTA_E4                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+         2                                                                                                                                                                                                                                                                                                  
+
+
+  VISTA_E5                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+         2                                                                                                                                                                                                                                                                                                  
+
+
+  VISTA_E6                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+         5                                                                                                                                                                                                                                                                                                  
+
+
+  VISTA_E7                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+         5                                                                                                                                                                                                                                                                                                  
+
+
+  VISTA_E8                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+         2                                                                                                                                                                                                                                                                                                  
+
+
+  VISTA_E9                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+         2                                                                                                                                                                                                                                                                                                  
+

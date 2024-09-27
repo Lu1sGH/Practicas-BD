@@ -18,6 +18,7 @@ DROP TABLE DEPARTMENT CASCADE CONSTRAINTS;
 DROP TABLE DEPT_LOCATIONS CASCADE CONSTRAINTS;
 DROP TABLE DEPENDENT CASCADE CONSTRAINTS;
 DROP TABLE PROJECT CASCADE CONSTRAINTS;
+DROP TABLE WORKS_ON CASCADE CONSTRAINTS;
 
 CREATE TABLE EMPLOYEE (
     Fname VARCHAR2(15),
@@ -167,7 +168,7 @@ ADD CONSTRAINT chk_dependent_sex CHECK (Sex IN ('M', 'F'));
 
 
 ALTER TABLE DEPENDENT
-ADD CONSTRAINT chk_dependent_bdate CHECK (Bdate > DATE '1990-01-01');
+ADD CONSTRAINT chk_dependent_bdate CHECK (Bdate > DATE '1900-01-01');
 
 ALTER TABLE DEPENDENT
 ADD CONSTRAINT chk_dependent_relationship CHECK (
@@ -184,11 +185,13 @@ INTO EMPLOYEE (Fname, Minit, Lname, Ssn, Bdate, Address, Sex, Salary, Super_ssn,
 INTO EMPLOYEE (Fname, Minit, Lname, Ssn, Bdate, Address, Sex, Salary, Super_ssn, Dno) VALUES ('Ahmad', 'V', 'Jabbar', 987987987, TO_DATE('1969-03-29', 'YYYY-MM-DD'), '980_Dallas,_Houston,_TX', 'M', 25000, 987654321, 4)
 INTO EMPLOYEE (Fname, Minit, Lname, Ssn, Bdate, Address, Sex, Salary, Super_ssn, Dno) VALUES ('James', 'E', 'Borg', 888665555, TO_DATE('1937-11-10', 'YYYY-MM-DD'), '450_Stone,_Houston,_TX', 'M', 55000, NULL, 1)
 SELECT * FROM DUAL;
+
 INSERT ALL 
 INTO DEPARTMENT (Dname, Dnumber, Mgr_ssn, Mgr_start_date) VALUES ('Research', 5, 333445555, TO_DATE('1988-05-22', 'YYYY-MM-DD'))
 INTO DEPARTMENT (Dname, Dnumber, Mgr_ssn, Mgr_start_date) VALUES ('Administration', 4, 987654321, TO_DATE('1995-01-01', 'YYYY-MM-DD'))
 INTO DEPARTMENT (Dname, Dnumber, Mgr_ssn, Mgr_start_date) VALUES ('Headquarters', 1, 888665555, TO_DATE('1981-06-19', 'YYYY-MM-DD'))
 SELECT * FROM DUAL;
+
 INSERT ALL 
 INTO DEPT_LOCATIONS (Dnumber, Dlocation) VALUES (1, 'Houston')
 INTO DEPT_LOCATIONS (Dnumber, Dlocation) VALUES (4, 'Stafford')
@@ -215,7 +218,6 @@ INSERT ALL
     INTO WORKS_ON (Essn, Pno, Hours) VALUES (987654321, 20, 15.0)
     INTO WORKS_ON (Essn, Pno, Hours) VALUES (888665555, 20, NULL)
 SELECT * FROM DUAL;
-
 
 INSERT ALL 
     INTO PROJECT (Pname, Pnumber, Plocation, Dnum) VALUES ('ProductX', 1, 'Bellaire', 5)
@@ -245,5 +247,6 @@ SELECT * FROM DEPARTMENT;
 SELECT * FROM DEPT_LOCATIONS;
 SELECT * FROM DEPENDENT;
 SELECT * FROM PROJECT;
+SELECT * FROM WORKS_ON;
 
 SPOOL OFF;

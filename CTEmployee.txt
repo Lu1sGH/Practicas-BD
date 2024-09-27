@@ -1,0 +1,207 @@
+
+Fecha de ejecucion                                                                                                                                    
+-----------------------------                                                                                                                         
+26-SEP-2024 21:26:40                                                                                                                                  
+
+
+Tabla borrada.
+
+
+Tabla borrada.
+
+
+Tabla borrada.
+
+
+Tabla borrada.
+
+
+Tabla borrada.
+
+
+Tabla borrada.
+
+
+Tabla creada.
+
+
+Tabla creada.
+
+
+Tabla creada.
+
+
+Tabla creada.
+
+
+Tabla creada.
+
+
+Tabla creada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+Tabla modificada.
+
+
+8 filas creadas.
+
+
+3 filas creadas.
+
+
+5 filas creadas.
+
+
+16 filas creadas.
+
+
+6 filas creadas.
+
+
+7 filas creadas.
+
+
+FNAME          | * |M| * |LNAME          | * |       SSN| * |BDATE   | * |ADDRESS                  | * |S| * |    SALARY| * |SUPER_SSN| * |       DNO                                                                                                                                                       
+---------------| * |-| * |---------------| * |----------| * |--------| * |-------------------------| * |-| * |----------| * |---------| * |----------                                                                                                                                                       
+John           | * |B| * |Smith          | * | 123456789| * |09/01/65| * |731_Fondren,_Houston,_TX | * |M| * |     30000| * |333445555| * |         5                                                                                                                                                       
+Frankin        | * |T| * |Wong           | * | 333445555| * |08/12/55| * |698_Voss,_Houston,_TX    | * |M| * |     40000| * |888665555| * |         5                                                                                                                                                       
+Alcia          | * |J| * |Zelaya         | * | 999887777| * |19/01/68| * |9921_Castle,_Spring,_TX  | * |F| * |     25000| * |987654321| * |         4                                                                                                                                                       
+Jennifer       | * |S| * |Wallace        | * | 987654321| * |20/06/41| * |291_Beny,_Bellaire,_TX   | * |F| * |     43000| * |888665555| * |         4                                                                                                                                                       
+Ramesh         | * |K| * |Narayan        | * | 666884444| * |15/09/62| * |975_Fire_Oak,_Humble,_TX | * |M| * |     38000| * |333445555| * |         5                                                                                                                                                       
+Joyce          | * |A| * |English        | * | 453453453| * |31/07/72| * |5691_Rice,_Houston,_TX   | * |F| * |     25000| * |333445555| * |         5                                                                                                                                                       
+Ahmad          | * |V| * |Jabbar         | * | 987987987| * |29/03/69| * |980_Dallas,_Houston,_TX  | * |M| * |     25000| * |987654321| * |         4                                                                                                                                                       
+James          | * |E| * |Borg           | * | 888665555| * |10/11/37| * |450_Stone,_Houston,_TX   | * |M| * |     55000| * |Nulos    | * |         1                                                                                                                                                       
+
+8 filas seleccionadas.
+
+
+DNAME          | * |   DNUMBER| * |   MGR_SSN| * |MGR_STAR                                                                                                                                                                                                                                                  
+---------------| * |----------| * |----------| * |--------                                                                                                                                                                                                                                                  
+Research       | * |         5| * | 333445555| * |22/05/88                                                                                                                                                                                                                                                  
+Administration | * |         4| * | 987654321| * |01/01/95                                                                                                                                                                                                                                                  
+Headquarters   | * |         1| * | 888665555| * |19/06/81                                                                                                                                                                                                                                                  
+
+
+   DNUMBER| * |DLOCATION                                                                                                                                                                                                                                                                                    
+----------| * |--------------------                                                                                                                                                                                                                                                                         
+         1| * |Houston                                                                                                                                                                                                                                                                                      
+         4| * |Stafford                                                                                                                                                                                                                                                                                     
+         5| * |Bellaire                                                                                                                                                                                                                                                                                     
+         5| * |Houston                                                                                                                                                                                                                                                                                      
+         5| * |Sugarland                                                                                                                                                                                                                                                                                    
+
+
+      ESSN| * |DEPENDENT_NAME | * |S| * |BDATE   | * |RELATIONSHIP                                                                                                                                                                                                                                          
+----------| * |---------------| * |-| * |--------| * |--------------------                                                                                                                                                                                                                                  
+ 333445555| * |Alice          | * |F| * |05/04/86| * |Daughter                                                                                                                                                                                                                                              
+ 333445555| * |Theodore       | * |M| * |25/10/83| * |Son                                                                                                                                                                                                                                                   
+ 333445555| * |Joy            | * |F| * |03/05/58| * |Spouse                                                                                                                                                                                                                                                
+ 987654321| * |Abner          | * |M| * |28/02/42| * |Spouse                                                                                                                                                                                                                                                
+ 123456789| * |Michael        | * |M| * |04/01/88| * |Son                                                                                                                                                                                                                                                   
+ 123456789| * |Alice          | * |F| * |30/12/88| * |Daughter                                                                                                                                                                                                                                              
+ 123456789| * |Elizabeth      | * |F| * |05/05/67| * |Spouse                                                                                                                                                                                                                                                
+
+7 filas seleccionadas.
+
+
+PNAME          | * |   PNUMBER| * |PLOCATION      | * |      DNUM                                                                                                                                                                                                                                           
+---------------| * |----------| * |---------------| * |----------                                                                                                                                                                                                                                           
+ProductX       | * |         1| * |Bellaire       | * |         5                                                                                                                                                                                                                                           
+ProductY       | * |         2| * |Sugarland      | * |         5                                                                                                                                                                                                                                           
+ProductZ       | * |         3| * |Houston        | * |         5                                                                                                                                                                                                                                           
+Computerization| * |        10| * |Stafford       | * |         4                                                                                                                                                                                                                                           
+Reorganization | * |        20| * |Houston        | * |         1                                                                                                                                                                                                                                           
+Newbenefits    | * |        30| * |Stafford       | * |         4                                                                                                                                                                                                                                           
+
+6 filas seleccionadas.
+
