@@ -29,7 +29,7 @@ CREATE TABLE EMPLOYEE (
     Address VARCHAR2(25),
     Sex CHAR(1),
     Salary NUMBER(8,2),
-    Super_ssn VARCHAR2(9),
+    Super_ssn NUMBER(9),
     Dno NUMBER(2)
 );
 
