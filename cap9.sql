@@ -1,4 +1,5 @@
 SPOOL C:\guest\schemasetup\Cap9OUT.txt
+SET ECHO OFF;
 /*												CAP 9
 |||||||||||||||||||||||||||||||||||||| 9.1 "The Power of UNION and UNION ALL" ||||||||||||||||||||||||||||||||||||||
 Rischert, A. (2010). Oracle SQL By Example.
@@ -64,7 +65,7 @@ FROM enrollment
 ORDER BY 3;
 
 --(Rischert, 2010, 385)
---A falta de columnas, se usan NULLs casteados al respectivo tipo de dato faltante, esto PARALLEL
+--A falta de columnas, se usan NULLs casteados al respectivo tipo de dato faltante, esto para
 --evitar conversiones implicitas
 SELECT DISTINCT salutation, CAST(NULL AS NUMBER),
 state, z.created_date
@@ -290,3 +291,5 @@ SELECT student_id
 FROM enrollment;
 
 --========================================================================================================================
+
+SPOOL OFF;

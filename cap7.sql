@@ -1,4 +1,5 @@
 SPOOL C:\guest\schemasetup\Cap7OUT.txt
+SET ECHO OFF;
 /*												CAP 7
 |||||||||||||||||||||||||||||||||||||| 7.1 " The Two-Table Join" ||||||||||||||||||||||||||||||||||||||
 Rischert, A. (2010). Oracle SQL By Example.
@@ -326,3 +327,5 @@ AND e.student_id = s.student_id
 ORDER BY s.last_name;
 
 --========================================================================================================================
+
+SPOOL OFF;

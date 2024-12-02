@@ -1,4 +1,5 @@
 SPOOL C:\guest\schemasetup\Cap8OUT.txt
+SET ECHO OFF;
 /*												CAP 8
 |||||||||||||||||||||||||||||||||||||| 8.1 "The Two-Table Join" ||||||||||||||||||||||||||||||||||||||
 Rischert, A. (2010). Oracle SQL By Example.
@@ -154,8 +155,9 @@ FROM course
 WHERE course_no IN (310, 220));
 
 --(Rischert, 2010, 331)
---Retorna el course_no y el prerequisite de la tabla course tal que no existe en los valores que
---retorna el subquery.
+--Retorna el course_no y el prerequisite de la tabla course tal que no existe retorno de la subconsulta en donde 
+--el prerequisite actual (al recorrer las tuplas) de la tabla course no es igual a alguno de la tabla course en donde la
+--ID sea o 310 o 220
 SELECT course_no, prerequisite
 FROM course c
 WHERE NOT EXISTS
@@ -773,3 +775,5 @@ AND section_id = 89
 AND grade_type_code IN ('HM', 'FI');
 
 --========================================================================================================================
+
+SPOOL OFF;

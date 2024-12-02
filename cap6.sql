@@ -1,4 +1,5 @@
 SPOOL C:\guest\schemasetup\Cap6OUT.txt
+SET ECHO OFF;
 /*												CAP 6
 ||||||||||||||||||||||||||||||||||| 6.1 "Aggregate Functions, GROUP BY,and HAVING Clauses" |||||||||||||||||||||||||||||||||||
 Rischert, A. (2010). Oracle SQL By Example.
@@ -251,3 +252,5 @@ GROUP BY course_no
 HAVING COUNT(*) = 2;
 
 --========================================================================================================================
+
+SPOOL OFF;
